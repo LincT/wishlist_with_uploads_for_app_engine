@@ -25,7 +25,7 @@ SECRET_KEY = '3*5+g(sb+0dq*4m_cf@oedqyf$-$3%qcmtwu+6t=hkg#=r4+7p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/admin'
 # Application definition
@@ -78,9 +78,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'wishlist',
+        # 'USER': 'django_web_app',
+        # 'PASSWORD': os.getenv('WISHLIST_DB_PW'),
+        # 'HOST': '/cloudsql/wishlist-projected-27032018:us-central1:wishlist-travel-db-001',
+        # 'PORT': '5432'
     }
 }
 
+if not os.getenv('GAE_INSTANCE'):
+    DATABASES['default']['HOST'] = '127.0.0.1'  # there's no place like home
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
